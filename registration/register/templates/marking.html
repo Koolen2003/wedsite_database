@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Data Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://cdn.pixabay.com/photo/2023/11/06/09/52/mountain-8369262_960_720.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 95%;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            overflow-x: auto; /* Allow horizontal scrolling for small screens */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 1.8rem;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            min-width: 600px; /* Ensure the table has a minimum width */
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .edit-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .edit-button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .back-button button {
+            padding: 10px 20px;
+            background-color: #04AA6D;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button button:hover {
+            background-color: #45a049;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            #searchInput {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+
+            th, td {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
+
+            .edit-button {
+                font-size: 0.8rem;
+                padding: 5px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            th, td {
+                font-size: 0.7rem;
+                padding: 6px;
+            }
+
+            #searchInput {
+                font-size: 0.8rem;
+                padding: 6px;
+            }
+
+            .edit-button {
+                font-size: 0.7rem;
+                padding: 4px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Data Management</h1>
+        <input type="text" id="searchInput" placeholder="Search for students by name or ID...">
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Last Name</th>
+                    <th>Student ID</th>
+                    <th>Cohort</th>
+                    <th>Computer Architecture</th>
+                    <th>Networking</th>
+                    <th>R Programming</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.last_name }}</td>
+                    <td>{{ student.student_id }}</td>
+                    <td>{{ student.cohort }}</td>
+                    <td>{{ student.Computer_Arquitecture }}</td>
+                    <td>{{ student.Networking }}</td>
+                    <td>{{ student.R_Programming }}</td>
+                    <td>
+                        <a href="{% url 'edit_student' student.student_id %}" class="edit-button">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="back-button">
+            <button onclick="window.location.href='/teachers/'">Back</button>
+        </div>
+        <script>
+            // Search Functionality
+            document.getElementById('searchInput').addEventListener('keyup', function () {
+                const filter = this.value.toLowerCase();
+                const rows = document.querySelectorAll('#studentTable tbody tr');
+    
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    const matches = Array.from(cells).some(cell => cell.textContent.toLowerCase().includes(filter));
+                    row.style.display = matches ? '' : 'none';
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>

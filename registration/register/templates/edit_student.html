@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Student</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensure this is added -->
+    <style>
+        body {
+            animation: backgroundScroll 80s linear infinite;
+            background-image: url(https://cdn.pixabay.com/photo/2023/11/06/09/52/mountain-8369262_960_720.jpg);
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            max-width: 90%; /* Use percentage for better responsiveness */
+            margin: 20px auto; /* Add some margin for better spacing */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 1.8rem; /* Use relative units for font size */
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 1rem; /* Use relative units for font size */
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #04AA6D;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s ease-in-out;
+            font-size: 1rem; /* Use relative units for font size */
+        }
+
+        .form-group input:focus {
+            border-color: #45a049;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px; /* Add gap between buttons */
+            margin-top: 20px;
+        }
+
+        .form-actions button {
+            padding: 10px 20px;
+            background-color: #04AA6D;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            flex: 1; /* Make buttons take equal space */
+        }
+
+        .form-actions button:hover {
+            background-color: #45a049;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem; /* Smaller font size for tablets */
+            }
+
+            .form-group label {
+                font-size: 0.9rem; /* Smaller font size for tablets */
+            }
+
+            .form-group input {
+                font-size: 0.9rem; /* Smaller font size for tablets */
+                padding: 8px; /* Smaller padding for tablets */
+            }
+
+            .form-actions {
+                flex-direction: column; /* Stack buttons vertically on small screens */
+            }
+
+            .form-actions button {
+                width: 100%; /* Full width buttons on small screens */
+                margin-bottom: 10px; /* Add space between stacked buttons */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.2rem; /* Smaller font size for mobile phones */
+            }
+
+            .form-group label {
+                font-size: 0.8rem; /* Smaller font size for mobile phones */
+            }
+
+            .form-group input {
+                font-size: 0.8rem; /* Smaller font size for mobile phones */
+                padding: 6px; /* Smaller padding for mobile phones */
+            }
+        }
+    </style>
+</head>
+<body>
+   <div class="container">
+        <h1>Edit Student</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+                <button type="submit" class="edit-button">Save Changes</button>
+                <a href="{% url 'marking' %}" class="edit-button">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

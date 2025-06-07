@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <title>Registration Form</title>
+    <style>
+     
+   
+        body {
+            animation: backgroundScroll 80s linear infinite;
+            background-image: url(https://cdn.pixabay.com/photo/2023/11/06/09/52/mountain-8369262_960_720.jpg);
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            max-width: 95%; /* Use percentage for better responsiveness */
+            margin: 20px auto; /* Add some margin for better spacing */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .back-button button {
+            padding: 10px 20px;
+            background-color: #04AA6D;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button button:hover {
+            background-color: #45a049;
+        }
+
+        .logout-button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .logout-button:hover {
+            background-color: #e60000;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem; /* Smaller font size for tablets */
+            }
+
+            h2 {
+                font-size: 1.3rem; /* Smaller font size for tablets */
+            }
+
+            h3 {
+                font-size: 1.1rem; /* Smaller font size for tablets */
+            }
+
+            th, td {
+                padding: 8px; /* Smaller padding for tablets */
+                font-size: 0.9rem; /* Smaller font size for tablets */
+            }
+
+            .logout-button {
+                padding: 8px 16px; /* Smaller padding for tablets */
+                font-size: 14px; /* Smaller font size for tablets */
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.2rem; /* Smaller font size for mobile phones */
+            }
+
+            h2 {
+                font-size: 1rem; /* Smaller font size for mobile phones */
+            }
+
+            h3 {
+                font-size: 0.9rem; /* Smaller font size for mobile phones */
+            }
+
+            th, td {
+                padding: 6px; /* Smaller padding for mobile phones */
+                font-size: 0.8rem; /* Smaller font size for mobile phones */
+            }
+
+            .logout-button {
+                padding: 6px 12px; /* Smaller padding for mobile phones */
+                font-size: 12px; /* Smaller font size for mobile phones */
+            }
+
+            .navbar-nav {
+                flex-direction: column; /* Stack navbar items vertically on small screens */
+            }
+
+            .navbar-toggler {
+                margin-bottom: 10px; /* Add space below the toggler */
+            }
+        }
+        .text {
+            text-align: center;
+            font-size: 41px;
+            font-weight: 600;
+            background: -webkit-linear-gradient(right, #56d8e4, #9f01ea, #56d8e4, #9f01ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .input-data {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-data input,
+        .input-data textarea {
+            display: block;
+            width: 100%;
+            height: 40px;
+            border: none;
+            font-size: 17px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.12);
+            transition: all 0.3s ease;
+        }
+
+        .input-data input:focus ~ label,
+        .input-data input:valid ~ label,
+        .input-data textarea:focus ~ label,
+        .input-data textarea:valid ~ label {
+            transform: translateY(-20px);
+            font-size: 14px;
+            color: #3498db;
+        }
+
+        .input-data label {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .underline {
+            position: absolute;
+            bottom: 0;
+            height: 2px;
+            width: 100%;
+            background: #3498db;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s ease;
+        }
+
+        .input-data input:focus ~ .underline,
+        .input-data input:valid ~ .underline,
+        .input-data textarea:focus ~ .underline,
+        .input-data textarea:valid ~ .underline {
+            transform: scale(1);
+        }
+
+        .submit-btn .input-data {
+            width: 48%;
+            display: inline-block;
+        }
+
+        .submit-btn .input-data input {
+            background: linear-gradient(115deg, #56d8e4, #9f01ea);
+            border: none;
+            color: #fff;
+            padding: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn .input-data input:hover {
+            background: linear-gradient(115deg, #9f01ea, #56d8e4);
+        }
+        input[type="reset"] {
+            appearance: auto;
+        }
+        
+
+        @media (max-width: 700px) {
+            .container .text {
+                font-size: 30px;
+            }
+
+            .submit-btn .input-data {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <h1 class="text"><span style="color: blue;">Polytechnics</span></h1>
+
+            <!-- Render Django form fields here -->
+            {% for field in form %}
+                <div class="input-data">
+                    {{ field }}
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <div class="underline"></div>
+                </div>
+            {% endfor %}
+
+            <div class="submit-btn">
+                <div class="input-data">
+                    <input type="submit" value="Submit">
+                </div>
+                <div class="input-data">
+                    <input type="reset" value="Reset">
+                </div>
+           
+            </div> 
+            <div class="back-button">
+                    <button onclick="window.location.href='/teachers/'">Back</button>
+                </div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const placeholders = document.querySelectorAll('.input-data label'),
+                  inputs = document.querySelectorAll('.input-data input, .input-data textarea');
+        
+            placeholders.forEach(function(el, i){
+                let value = el.innerText,
+                    html = '';
+                for(let w of value){
+                    html += `<span class="letter">${w}</span>`;
+                }
+                el.innerHTML = html;
+            });
+        
+            inputs.forEach(function(el){
+                let parent = el.parentNode;
+                el.addEventListener('focus', function(){
+                    parent.classList.add('filled');
+                    placeholderAnimationIn(parent, true);
+                });
+                el.addEventListener('blur', function(){
+                    if (el.value.length) return;
+                    parent.classList.remove('filled');
+                    placeholderAnimationIn(parent, false);
+                });
+            });
+        
+            function placeholderAnimationIn(parent, action){
+                let act = action ? 'add' : 'remove';
+                let letters = Array.from(parent.querySelectorAll('.letter'));
+                if (!action) letters.reverse();
+                letters.forEach(function(el, i){
+                    setTimeout(() => {
+                        let contains = parent.classList.contains('filled');
+                        if ((action && !contains) || (!action && contains)) return;
+                        el.classList[act]('active');
+                    }, 50 * i);
+                });
+            }
+        
+            // Fix Reset Button Functionality
+            document.querySelector("form").addEventListener("reset", function () {
+                setTimeout(() => {
+                    document.querySelectorAll(".input-data").forEach(parent => {
+                        let input = parent.querySelector("input, textarea"); 
+                        if (input) {
+                            input.value = ""; // Clear input values manually
+                        }
+                        parent.classList.remove("filled"); // Remove "filled" class
+                        placeholderAnimationIn(parent, false); // Reset placeholder animation
+                    });
+                }, 10);
+            });
+        });
+        
+    </script>
+    
+</body>
+</html>

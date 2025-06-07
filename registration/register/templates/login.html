@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polytechnics Login</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://cdn.pixabay.com/photo/2023/11/06/09/52/mountain-8369262_960_720.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            max-width: 95%;
+            margin: 20px auto;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            overflow-x: auto; /* Allow horizontal scrolling for small screens */
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .btn {
+            width: 100%;
+        }
+        #studentFields, #teacherFields {
+            display: none;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .edit-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+
+        .edit-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive Styling */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            #searchInput {
+                font-size: 0.9rem;
+                padding: 8px;
+            }
+
+            th, td {
+                font-size: 0.8rem;
+                padding: 8px;
+            }
+
+            .edit-button {
+                font-size: 0.8rem;
+                padding: 5px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            th, td {
+                font-size: 0.7rem;
+                padding: 6px;
+            }
+
+            #searchInput {
+                font-size: 0.8rem;
+                padding: 6px;
+            }
+
+            .edit-button {
+                font-size: 0.7rem;
+                padding: 4px 6px;
+            }
+        }
+        
+        }
+    </style>
+    <script>
+        // Show the relevant fields when a user type is selected
+        function toggleFields() {
+            const userType = document.querySelector('input[name="user_type"]:checked');
+            if (userType && userType.value === 'teacher') {
+                document.getElementById('studentFields').style.display = 'none';
+                document.getElementById('teacherFields').style.display = 'block';
+            } else {
+                document.getElementById('teacherFields').style.display = 'none';
+                document.getElementById('studentFields').style.display = 'block';
+            }
+        }
+
+        // Initialize the field visibility on page load
+        window.onload = toggleFields;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Polytechnics Login</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- User Type Selection -->
+            <div class="form-group">
+                <label>Select User Type:</label><br>
+                <input type="radio" name="user_type" value="student" onchange="toggleFields()" required> Student
+                <input type="radio" name="user_type" value="teacher" onchange="toggleFields()"> Teacher
+            </div>
+
+            <!-- Student Login Fields -->
+            <div id="studentFields">
+                <div class="form-group">
+                    {{ form.name.label_tag }} {{ form.name }}
+                </div>
+                <div class="form-group">
+                    {{ form.last_name.label_tag }} {{ form.last_name }}
+                </div>
+                <div class="form-group">
+                    {{ form.student_id.label_tag }} {{ form.student_id }}
+                </div>
+                <div class="form-group">
+                    {{ form.cohort.label_tag }} {{ form.cohort }}
+                </div>
+            </div>
+
+            <!-- Teacher Login Fields -->
+            <div id="teacherFields">
+                <div class="form-group">
+                    {{ form.username.label_tag }} {{ form.username }}
+                </div>
+                <div class="form-group">
+                    {{ form.password.label_tag }} {{ form.password }}
+                </div>
+            </div>
+
+            <!-- Hidden Submit Type -->
+            <input type="hidden" id="submitType" name="submitType" value="">
+
+            <!-- Submit Buttons -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" onclick="document.getElementById('submitType').value='student'">Login as Student</button>
+                <button type="submit" class="btn btn-secondary" onclick="document.getElementById('submitType').value='teacher'">Login as Teacher</button>
+            </div>
+
+            <!-- Display Messages -->
+            {% if messages %}
+                <div class="alert alert-info">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Charts</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        .chart-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Student Performance Charts</h1>
+
+    <!-- Chart 1: Average Marks per Subject -->
+    <div class="chart-container">
+        <h2>Average Marks per Subject</h2>
+        <canvas id="subjectChart"></canvas>
+    </div>
+
+    <!-- Chart 2: Students per Cohort -->
+    <div class="chart-container">
+        <h2>Students per Cohort</h2>
+        <canvas id="cohortChart"></canvas>
+    </div>
+
+    <script>
+        // Chart 1: Average Marks per Subject
+        const subjectCtx = document.getElementById('subjectChart').getContext('2d');
+        new Chart(subjectCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ avg_marks.labels|safe }},
+                datasets: [{
+                    label: 'Average Marks',
+                    data: {{ avg_marks.data|safe }},
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        // Chart 2: Students per Cohort
+        const cohortCtx = document.getElementById('cohortChart').getContext('2d');
+        new Chart(cohortCtx, {
+            type: 'bar',
+            data: {
+                labels: {{ cohort_counts.labels|safe }},
+                datasets: [{
+                    label: 'Number of Students',
+                    data: {{ cohort_counts.data|safe }},
+                    backgroundColor: '#4BC0C0',
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+    </script>
+</body>
+</html>
+</body>
+<div class="back-button">
+    <button onclick="window.location.href='/teachers/'">Back</button>
+</div>
+</html>
